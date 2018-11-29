@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 25, 2018, 2:44:14 PM
+    Author     : Greg VanKampen
+*/
+
+body{
+font-family: Arial;
+}
+
+.header{background-color: darksalmon;}
+.evenRows{background-color: aliceblue;}
+.oddRows{background-color: bisque;}
+.arial{font-family: Arial !important;}
+
+.rightalign{
+text-align:right;
+}
+.leftalign{
+text-align:left;
+}
+.rightalign-bold{
+text-align:right;
+font-weight:bold;
+}
+.normal{
+font-family: Courier;
+}
+
+.success{
+color:green;
+font-weight: bold;
+}
+
+.err{
+color:red;
+font-family: Arial;
+font-weight: bold;
+font-size: 11px;
+}
+
+.likeabutton {
+text-decoration: none; font: menu;
+display: inline-block; padding: 2px 8px;
+background: ButtonFace; color: ButtonText;
+border-style: solid; border-width: 2px;
+border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+}
+.likeabutton:active {
+border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+
+p{
+    max-width: 60em;
+    padding: 20px;
+    margin: auto;
+    line-height: 25px;
+}
+h2{
+    text-align:center;
+}
+h3{
+    text-align: center;
+}
+
+nav{
+    background-image: linear-gradient(black, gray);
+    text-align:center;
+}
+a{
+    color:white;
+    font-size:1.5em;
+}
+img{
+    height:200px;
+    display: block;
+    padding:20px;
+    margin:auto;
+}
+form{
+    font-size:25px;
+    margin-left:30%;
+}
+
+#etaBlock{
+    margin-left:30%;
+}
+footer{
+    background-image: linear-gradient(black, gray);
+    text-align:center;
+    color:white;
+}
+#motd{
+    background-color:cyan;
+    border-width: 5px;
+    border-style:groove;
+    text-align: center;
+    width:25%;
+    margin:auto;
+    
+    
+}
