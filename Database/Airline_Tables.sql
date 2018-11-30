@@ -27,8 +27,6 @@ CREATE TABLE `Flights`(
 `AvailableSeats` INT NOT NULL,
 `Price` FLOAT NOT NULL,
 PRIMARY KEY(`FlightNo`),
-CONSTRAINT `fk_flight_airport_iata_depart` FOREIGN KEY (`DepartureAirport`) REFERENCES `airports` (`IATA`),
-CONSTRAINT `fk_flight_airport_iata_arrive` FOREIGN KEY (`ArrivalAirport`) REFERENCES `airports` (`IATA`)
 );
 
 CREATE TABLE `Travelers`(
@@ -40,6 +38,18 @@ CREATE TABLE `Travelers`(
 `PhoneNo` INT NOT NULL,
 `Passport` VARCHAR(128) NOT NULL,
 `Birthday` DATE NOT NULL,
+`Email` VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE `Reservations`(
+`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`Status` ENUM('Active', 'Canceled') NOT NULL,
+`StartDate` DateTime NOT NULL,
+`EndDateTime` DateTime NOT NULL,
+`PassengerNo` INT NOT NULL,
+`TicketType` ENUM('Adult', 'Child', 'Senior'),
+`NonStopFlight` boolean,
+`FlightClass` ENUM('First', 'Economy','Business'),
 `CreditType` VARCHAR(128) NOT NULL,
 `CreditNo` INT NOT NULL,
 `CreditHolder` VARCHAR(128) NOT NULL,
@@ -49,5 +59,14 @@ CREATE TABLE `Travelers`(
 `Address2` VARCHAR(1024)NOT NULL,
 `PostalCode` VARCHAR(128) NOT NULL,
 `Country` VARCHAR(128) NOT NULL,
-`Email` VARCHAR(128) NOT NULL
+`TotalCost` FLOAT NOT NULL,
+`AirportTransportationCosts` FLOAT NOT NULL,
+`TotalCost` FLOAT NOT NULL
 );
+CREATE TABLE `ReservationFlights`(
+`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+CREATE TABLE `ReservationTravelers`(
+`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
