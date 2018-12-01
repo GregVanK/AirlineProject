@@ -17,16 +17,14 @@ CREATE TABLE `Flights`(
 `AirlineName` VARCHAR(128) NOT NULL,
 `DepartureAirport` VARCHAR(3),
 `ArrivalAirport` VARCHAR(3),
-`DepartureDate` DATE NOT NULL,
-`DepartureTime` TIME NOT NULL,
-`ArrivalDate` DATE NOT NULL,
-`ArrivalTime` TIME NOT NULL,
+`DepartureDate` DATETIME NOT NULL,
+`ArrivalDate` DATETIME NOT NULL,
 `FlightTime` TIME NOT NULL,
 `Status` VARCHAR(128) NOT NULL,
 `Seats` INT NOT NULL,
 `AvailableSeats` INT NOT NULL,
 `Price` FLOAT NOT NULL,
-PRIMARY KEY(`FlightNo`),
+PRIMARY KEY(`FlightNo`)
 );
 
 CREATE TABLE `Travelers`(
@@ -60,7 +58,7 @@ CREATE TABLE `Reservations`(
 `PostalCode` VARCHAR(128) NOT NULL,
 `Country` VARCHAR(128) NOT NULL,
 `TotalCost` FLOAT NOT NULL,
-`AirportTransportationCosts` FLOAT NOT NULL,
+`TransportationCosts` FLOAT NOT NULL,
 `OtherFees` FLOAT NOT NULL
 );
 CREATE TABLE `ReservationFlights`(
