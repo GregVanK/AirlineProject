@@ -58,13 +58,18 @@ CREATE TABLE `Reservations`(
 `PostalCode` VARCHAR(128) NOT NULL,
 `Country` VARCHAR(128) NOT NULL,
 `TotalCost` FLOAT NOT NULL,
-`AirportTransportationCosts` FLOAT NOT NULL,
-`AdditionalCosts` FLOAT NOT NULL
+`TransportationCosts` FLOAT NOT NULL,
+`OtherFees` FLOAT NOT NULL
 );
 CREATE TABLE `ReservationFlights`(
-`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`ReservationID` INT NOT NULL,
+`FlightNo` INT NOT NULL
+
 );
 CREATE TABLE `ReservationTravelers`(
-`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+`Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`ReservationID` INT NOT NULL,
+`TravelerId` INT NOT NULL
 );
 
