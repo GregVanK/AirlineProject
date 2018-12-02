@@ -17,16 +17,14 @@ CREATE TABLE `Flights`(
 `AirlineName` VARCHAR(128) NOT NULL,
 `DepartureAirport` VARCHAR(3),
 `ArrivalAirport` VARCHAR(3),
-`DepartureDate` DATE NOT NULL,
-`DepartureTime` TIME NOT NULL,
-`ArrivalDate` DATE NOT NULL,
-`ArrivalTime` TIME NOT NULL,
+`DepartureDate` DATETIME NOT NULL,
+`ArrivalDate` DATETIME NOT NULL,
 `FlightTime` TIME NOT NULL,
 `Status` VARCHAR(128) NOT NULL,
 `Seats` INT NOT NULL,
 `AvailableSeats` INT NOT NULL,
 `Price` FLOAT NOT NULL,
-PRIMARY KEY(`FlightNo`),
+PRIMARY KEY(`FlightNo`)
 );
 
 CREATE TABLE `Travelers`(
@@ -45,7 +43,7 @@ CREATE TABLE `Reservations`(
 `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 `Status` ENUM('Active', 'Canceled') NOT NULL,
 `StartDate` DateTime NOT NULL,
-`EndDateTime` DateTime NOT NULL,
+`EndDate` DateTime NOT NULL,
 `PassengerNo` INT NOT NULL,
 `TicketType` ENUM('Adult', 'Child', 'Senior'),
 `NonStopFlight` boolean,
@@ -56,12 +54,12 @@ CREATE TABLE `Reservations`(
 `CreditExpDate` DATE NOT NULL,
 `CreditId` INT(3) NOT NULL,
 `Address1` VARCHAR(1024) NOT NULL,
-`Address2` VARCHAR(1024)NOT NULL,
+`Address2` VARCHAR(1024),
 `PostalCode` VARCHAR(128) NOT NULL,
 `Country` VARCHAR(128) NOT NULL,
 `TotalCost` FLOAT NOT NULL,
 `AirportTransportationCosts` FLOAT NOT NULL,
-`TotalCost` FLOAT NOT NULL
+`AdditionalCosts` FLOAT NOT NULL
 );
 CREATE TABLE `ReservationFlights`(
 `Id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY
