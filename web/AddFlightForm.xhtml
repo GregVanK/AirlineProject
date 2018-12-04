@@ -10,78 +10,88 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"/>
         <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-	<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/>
-	<script src="/jquery.js"></script>
-	<script src="/build/jquery.datetimepicker.full.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/>
+        <script src="/jquery.js"></script>
+        <script src="/build/jquery.datetimepicker.full.min.js"></script>
         <script>
-            $(function(){
-               $(".datePickerControl").datepicker({
-                  dateFormat:"yy-mm-dd",
-                  changeMonth: true,
-                  changeYear: true,
-                  yearRange: "1960:2019"
-               });
+            $(function () {
+                $(".datePickerControl").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1960:2019"
+                });
             });
         </script>
-	
+
         <h:outputStylesheet library="css" name="styles.css"/>
     </h:head>
     <h:body>
-         <h:form>
+        <h:form>
             <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
-		<h:outputLabel value="Flight Number:" for="flightNo"/>
+                <h:outputLabel value="Flight Number:" for="flightNo"/>
                 <h:inputText id="flightNo" label="Flight Number:" required="true" value="#{flightBean.flightNo}"/>                             
                 <h:message for="flightNo" errorClass="err"/>
-		
+
                 <h:outputLabel value="Airline Name" for="name"/>
                 <h:inputText id="name" label="Airline Name:" required="true" value="#{flightBean.airlineName}"/>                             
                 <h:message for="name" errorClass="err"/>
-                
+
                 <h:outputLabel value="Departure Airport:" for="departureA"/>
                 <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}">
                     <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
                 </h:selectOneMenu>
                 <h:message for="departureA" errorClass="err"/>
-		
-		<h:outputLabel value="Arrival Airport:" for="arrivalA"/>
+
+                <h:outputLabel value="Arrival Airport:" for="arrivalA"/>
                 <h:selectOneMenu label ="Arrival Airport: " id="arrivalA" value="#{flightBean.arrivalAirport}">
                     <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
                 </h:selectOneMenu>
                 <h:message for="arrivalA" errorClass="err"/>
-                 
-		<h:outputLabel value="Departure Date:" for="departureD"/>
-		<p:calendar id="departureD" value="#{flightBean.departureDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                <h:outputLabel value="Departure Date:" for="departureD"/>
+                <h:inputText class="datePickerControl" label="Departure Date:" id="departureD" value="#{flightBean.departBeanDate}"  />
                 <h:message for="departureD" errorClass="err"/>
-		
-		<h:outputLabel value="Arrival Date:" for="arrivalD"/>
-		<p:calendar id="arrivalD" value="#{flightBean.departureDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                <h:outputLabel value="Departure Time:" for="departureT"/>
+                <h:inputText label="Departure Time:" id="departureT" value="#{flightBean.departBeanTime}"  />
+                <h:message for="departureT" errorClass="err"/>
+
+                <h:outputLabel value="Arrival Date:" for="arrivalD"/>
+                <h:inputText class="datePickerControl" label="Arrival Date:" id="arrivalD" value="#{flightBean.arrivalBeanDate}"  />  
                 <h:message for="arrivalD" errorClass="err"/>
-		
-		<h:outputLabel value="Flight Time:" for="flightTime"/>
-		<p:calendar id="flightTime" value="#{flightBean.flightTime}" pattern="HH:mm:ss" timeOnly="true" />
+
+                <h:outputLabel value="Arrival Time:" for="arrivalT"/>
+                <h:inputText label="Arrival Time:" id="arrivalT" value="#{flightBean.arrivalBeanTime}"  />
+                <h:message for="arrivalT" errorClass="err"/>
+
+                <h:outputLabel value="Flight Time:" for="flightTime"/>
+                <h:inputText label="Flight Time:" id="flightTime" value="#{flightBean.flightTime}"  />
                 <h:message for="flightTime" errorClass="err"/>
-		
-                
-		 <h:outputLabel value="Status:" for="status"/>
-		 <h:inputText id="status" label="Status:" required="true" value="#{flightBean.status}"/>                             
+
+
+                <h:outputLabel value="Status:" for="status"/>
+                <h:inputText id="status" label="Status:" required="true" value="#{flightBean.status}"/>                             
                 <h:message for="status" errorClass="err"/>
-		
-		<h:outputLabel value="Seats:" for="seats"/>
-		 <h:inputText id="seats" label="Seats:" required="true" value="#{flightBean.seats}"/>                             
+
+                <h:outputLabel value="Seats:" for="seats"/>
+                <h:inputText id="seats" label="Seats:" required="true" value="#{flightBean.seats}"/>                             
                 <h:message for="seats" errorClass="err"/>
-		
-		<h:outputLabel value="Available Seats:" for="aSeats"/>
-		<h:inputText id="aSeats" label="Available Seats:" required="true" value="#{flightBean.availableSeats}"/>                             
+
+                <h:outputLabel value="Available Seats:" for="aSeats"/>
+                <h:inputText id="aSeats" label="Available Seats:" required="true" value="#{flightBean.availableSeats}"/>                             
                 <h:message for="aSeats" errorClass="err"/>
-		
-		<h:outputLabel value="Price:" for="price"/>
-		<h:inputText id="price" label="Price:" required="true" value="#{flightBean.price}"/>                             
+
+                <h:outputLabel value="Price:" for="price"/>
+                <h:inputText id="price" label="Price:" required="true" value="#{flightBean.price}"/>                             
                 <h:message for="price" errorClass="err"/>
-		
-		
-		<h:commandButton value="Create Flight" action="#{flightBean.createFlight()}"/>
+
+                <br>
+                
+                <h:commandButton value="Create Flight" action="#{flightBean.createFlight()}"/>
             </h:panelGrid>
-	 </h:form>
+            <div>#{flightBean.resultMessage}</div>
+        </h:form>
     </h:body>
 </html>
 

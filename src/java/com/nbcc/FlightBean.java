@@ -30,26 +30,22 @@ public class FlightBean extends FlightBase implements  Serializable {
 
     private Flight flight;
     private String resultMessage;
+    private String  departBeanDate;
+    private String  arrivalBeanDate;
+    private String  departBeanTime;
+    private String  arrivalBeanTime;
     /**
      * Creates a new instance of FlightBean
      */
     public FlightBean() {
 	flight = new Flight();
     }
-        public void onDateSelect(SelectEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
-    }
-     
-    /**public void click() {
-        PrimeFaces.current().ajax().update("form:display");
-        PrimeFaces.current().executeScript("PF('dlg').show()");
-    }*/
     public void createFlight(){
 	try {
 	    this.resultMessage="";
+            combineDateTimes();
 	    flight.createFlight(this);
+            this.resultMessage="Succesfully Inserted";
 	} catch (Exception e) {
 	    this.resultMessage = e.getMessage();
 	}
@@ -57,4 +53,52 @@ public class FlightBean extends FlightBase implements  Serializable {
     public List<IAirportBase> getAirportList(){
 	return flight.getAirports();
     }
+    public void combineDateTimes(){
+        //TODO::Validate Time
+        this.setDepartureDate(departBeanDate + " " +departBeanTime);
+        this.setArrivalDate(arrivalBeanDate + " " + arrivalBeanTime);
+    }
+//<editor-fold defaultstate="collapsed" desc="Getters and setters">
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
+    }
+    
+    public String getDepartBeanDate() {
+        return departBeanDate;
+    }
+    
+    public void setDepartBeanDate(String departBeanDate) {
+        this.departBeanDate = departBeanDate;
+    }
+    
+    public String getArrivalBeanDate() {
+        return arrivalBeanDate;
+    }
+    
+    public void setArrivalBeanDate(String arrivalBeanDate) {
+        this.arrivalBeanDate = arrivalBeanDate;
+    }
+    
+    public String getDepartBeanTime() {
+        return departBeanTime;
+    }
+    
+    public void setDepartBeanTime(String departBeanTime) {
+        this.departBeanTime = departBeanTime;
+    }
+    
+    public String getArrivalBeanTime() {
+        return arrivalBeanTime;
+    }
+    
+    public void setArrivalBeanTime(String arrivalBeanTime) {
+        this.arrivalBeanTime = arrivalBeanTime;
+    }
+//</editor-fold>
+    
 }
