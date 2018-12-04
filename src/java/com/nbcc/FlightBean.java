@@ -12,7 +12,12 @@ import com.nbcc.airline.business.models.IFlightBase;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.annotation.ManagedBean;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -20,6 +25,7 @@ import java.util.List;
  */
 @Named(value = "flightBean")
 @SessionScoped
+@ManagedBean
 public class FlightBean extends FlightBase implements  Serializable {
 
     private Flight flight;
@@ -30,6 +36,16 @@ public class FlightBean extends FlightBase implements  Serializable {
     public FlightBean() {
 	flight = new Flight();
     }
+        public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
+     
+    /**public void click() {
+        PrimeFaces.current().ajax().update("form:display");
+        PrimeFaces.current().executeScript("PF('dlg').show()");
+    }*/
     public void createFlight(){
 	try {
 	    this.resultMessage="";
