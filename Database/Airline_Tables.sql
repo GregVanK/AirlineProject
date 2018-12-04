@@ -2,6 +2,9 @@ use airplaneticketdb;
 DROP TABLE IF EXISTS `Travelers`;
 DROP TABLE IF EXISTS `Flights`;
 DROP TABLE IF EXISTS `Airports`;
+DROP TABLE IF EXISTS `Reservations`;
+DROP TABLE IF EXISTS `Reservationflights`;
+DROP TABLE IF EXISTS `Reservationtravelers`;
 CREATE TABLE `Airports`(
 `Name` VARCHAR(128) NOT NULL,
 `IATA` VARCHAR(3) PRIMARY KEY
@@ -20,7 +23,7 @@ CREATE TABLE `Flights`(
 `DepartureDate` DATETIME NOT NULL,
 `ArrivalDate` DATETIME NOT NULL,
 `FlightTime` TIME NOT NULL,
-`Status` VARCHAR(128) NOT NULL,
+`Status` ENUM('Open','Completed','Canceled','In Transit','Delayed') NOT NULL,
 `Seats` INT NOT NULL,
 `AvailableSeats` INT NOT NULL,
 `Price` FLOAT NOT NULL,

@@ -28,26 +28,31 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
-                <h:outputLabel value="Flight Number:" for="flightNo"/>
-                <h:inputText id="flightNo" label="Flight Number:" required="true" value="#{flightBean.flightNo}"/>                             
-                <h:message for="flightNo" errorClass="err"/>
+            
+            <h:outputLabel value="Flight Number:" for="flightNo"/>
+            <h:inputText id="flightNo" label="Flight Number:" required="true" value="#{flightBean.currentFlightNo}" />                             
+            <h:message for="flightNo" errorClass="err"/>
+            <h:commandButton value="Modify Flight" action="#{flightBean.setFlight()}" rendered="#{flightBean.formActive eq 'false'}"/>
+            <h:commandButton value="Add Flight" action="#{flightBean.clearFlight()}" rendered="#{flightBean.formActive eq 'false'}"/>
+            <br/>
+            <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign" rendered="#{flightBean.formActive eq 'true'}">
+                
 
-                <h:outputLabel value="Airline Name" for="name"/>
-                <h:inputText id="name" label="Airline Name:" required="true" value="#{flightBean.airlineName}"/>                             
+                <h:outputLabel value="Airline Name" for="name" rendered="#{flightBean.isModify eq 'false'}" />
+                <h:inputText id="name" label="Airline Name:" required="true" value="#{flightBean.airlineName}" rendered="#{flightBean.isModify eq 'false'}" />                             
                 <h:message for="name" errorClass="err"/>
+                
+                <h:outputLabel value="Departure Airport:" for="departureA" rendered="#{flightBean.isModify eq 'false'}" />
+                <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}" rendered="#{flightBean.isModify eq 'false'}" >
+                    <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}" />
+                </h:selectOneMenu>
+                <h:message for="departureA" errorClass="err" rendered="#{flightBean.isModify eq 'false'}" />
 
-                <h:outputLabel value="Departure Airport:" for="departureA"/>
-                <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}">
+                <h:outputLabel value="Arrival Airport:" for="arrivalA" rendered="#{flightBean.isModify eq 'false'}"  />
+                <h:selectOneMenu label ="Arrival Airport: " id="arrivalA" value="#{flightBean.arrivalAirport}" rendered="#{flightBean.isModify eq 'false'}" >
                     <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
                 </h:selectOneMenu>
-                <h:message for="departureA" errorClass="err"/>
-
-                <h:outputLabel value="Arrival Airport:" for="arrivalA"/>
-                <h:selectOneMenu label ="Arrival Airport: " id="arrivalA" value="#{flightBean.arrivalAirport}">
-                    <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
-                </h:selectOneMenu>
-                <h:message for="arrivalA" errorClass="err"/>
+                <h:message for="arrivalA" errorClass="err" rendered="#{flightBean.isModify eq 'false'}" />
 
                 <h:outputLabel value="Departure Date:" for="departureD"/>
                 <h:inputText class="datePickerControl" label="Departure Date:" id="departureD" value="#{flightBean.departBeanDate}"  />
@@ -71,7 +76,14 @@
 
 
                 <h:outputLabel value="Status:" for="status"/>
-                <h:inputText id="status" label="Status:" required="true" value="#{flightBean.status}"/>                             
+                <h:selectOneMenu id="status" label="Status:" required="true" value="#{flightBean.status}">                             
+                    <f:selectItem itemValue="Open" itemLabel="Open"/>
+                    <f:selectItem itemValue="Complete" itemLabel="Complete"/>
+                    <f:selectItem itemValue="Canceled" itemLabel="Canceled"/>
+                    <f:selectItem itemValue="In Transit" itemLabel="In Transit"/>
+                    <f:selectItem itemValue="Delayed" itemLabel="Delayed"/>
+                </h:selectOneMenu>
+                
                 <h:message for="status" errorClass="err"/>
 
                 <h:outputLabel value="Seats:" for="seats"/>
@@ -88,7 +100,10 @@
 
                 <br/>
                 
-                <h:commandButton value="Create Flight" action="#{flightBean.createFlight()}"/>
+                <h:commandButton value="Create Flight" action="#{flightBean.createFlight()}" rendered="#{flightBean.isModify eq 'false'}" />
+                <h:commandButton value="Update Flight" action="#{flightBean.updateFlight()}" rendered="#{flightBean.isModify eq 'true'}"/>
+                <h:commandButton value="Cancel" action="#{flightBean.resetForm()}"/>
+                
             </h:panelGrid>
             <div>#{flightBean.resultMessage}</div>
         </h:form>
