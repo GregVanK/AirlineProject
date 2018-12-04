@@ -22,30 +22,39 @@
         <h:outputStylesheet library="css" name="styles.css"/>
     </h:head>
     <h:body>
-        <ui:insert name="header">
-            <ui:include src="navHeader.xhtml"/>
-        </ui:insert>
          <h:form>
-            <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign" rendered="#{serviceTicketBean.createdTicketID eq '0'}">
-                <h:outputLabel value="Short Description" for="shortDesc"/>
-                <h:inputText id="shortDesc" label="Short Description" required="true" value=""/>                             
-                <h:message for="shortDesc" errorClass="err"/>
+            <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
+		<h:outputLabel value="Flight Number:" for="flightNo"/>
+                <h:inputText id="flightNo" label="Flight Number:" required="true" value="#{flightBean.flightNo}"/>                             
+                <h:message for="flightNo" errorClass="err"/>
+		
+                <h:outputLabel value="Airline Name" for="name"/>
+                <h:inputText id="name" label="Airline Name:" required="true" value="#{flightBean.airlineName}"/>                             
+                <h:message for="name" errorClass="err"/>
                 
-                <h:outputLabel value="Status: " for="status"/>
-                <h:selectOneRadio label ="Status:" id="status" value="">
-                    <f:selectItem itemValue="Open" itemLabel="Open"/>
-                    <f:selectItem itemValue="Closed" itemLabel="Closed"/>
-                </h:selectOneRadio>
-                <h:message for="status" errorClass="err"/>
-                
-                <h:outputLabel value="Severity: " for="severity"/>
-                <h:selectOneMenu label ="Severity: " id="severity" value="">
-                    <f:selectItems value="" var="" itemValue="" itemLabel=""/>
+                <h:outputLabel value="Departure Airport:" for="departureA"/>
+                <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}">
+                    <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
                 </h:selectOneMenu>
-                <h:message for="severity" errorClass="err"/>
+                <h:message for="departureA" errorClass="err"/>
+		
+		<h:outputLabel value="Arrival Airport:" for="arrivalA"/>
+                <h:selectOneMenu label ="Arrival Airport: " id="arrivalA" value="#{flightBean.arrivalAirport}">
+                    <f:selectItems value="#{flightBean.getAirportList()}" var="airport" itemValue="#{airport.IATA}" itemLabel="#{airport.name}"/>
+                </h:selectOneMenu>
+                <h:message for="arrivalA" errorClass="err"/>
                  
-                <h:commandButton value="Submit Ticket" action=""/>
+		<h:outputLabel value="Departure Date: " for="departureD"/>
+                <h:inputText class="datePickerControl" label="Departure Date:" id="departureD" value="#{flightBean.departureDate}" />
+                <h:message for="departureD" errorClass="err"/>
+		
+		<h:outputLabel value="Departure Date: " for="departureD"/>
+                <h:inputText class="datePickerControl" label="Departure Date:" id="departureD" value="#{flightBean.departureDate}" />
+                <h:message for="departureD" errorClass="err"/>
+		
+                <h:commandButton value="Submit Ticket" action="#{flightBean.createFlight()}"/>
             </h:panelGrid>
+	 </h:form>
     </h:body>
 </html>
 
