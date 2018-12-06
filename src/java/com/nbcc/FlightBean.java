@@ -40,6 +40,7 @@ public class FlightBean extends FlightBase implements  Serializable {
     private boolean flightsLoaded;
     private boolean isModify;
     private boolean formActive;
+    private boolean showMore;
     /**
      * Creates a new instance of FlightBean
      */
@@ -48,6 +49,7 @@ public class FlightBean extends FlightBase implements  Serializable {
         formActive = false;
 	flightsLoaded = false;
         currentFlightNo = 0;
+        showMore = false;
     }
     public void searchFlights(){
 	    flights = flight.searchFlights(this);
@@ -151,8 +153,23 @@ public class FlightBean extends FlightBase implements  Serializable {
         this.clearFlight();
         this.setFormActive(false);
     }
-//<editor-fold defaultstate="collapsed" desc="Getters and setters">
+    public void displayFlight(int newFlightNo){
+                this.currentFlightNo = newFlightNo;
+                this.showMore(true);
+        this.setFlight();
+    }
+//<editor-fold defaultsttate="collapsed" desc="Getters and setters">
 
+    public boolean isShowMore() {
+       return this.showMore;
+    }
+
+    public void showMore(boolean value) {
+        this.showMore = value;
+        
+    }
+
+    
     public boolean isIsModify() {
         return isModify;
     }

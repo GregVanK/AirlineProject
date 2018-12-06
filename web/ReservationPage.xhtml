@@ -26,7 +26,7 @@
 	<h:outputStylesheet library="css" name="styles.css"/>
     </h:head>
     <h:body>
-	<h:form>
+        <h:form rendered="#{not flightBean.isShowMore()}">
 	    <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
 		 <h:outputLabel value="Departure Airport:" for="departureA"  />
                 <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}"  >
@@ -65,7 +65,7 @@
 		</div>
 	    </h:panelGrid> 
 	</h:form>
-	<h:form>
+	<h:form rendered="#{not flightBean.isShowMore()}">
 	    <h:dataTable value="#{flightBean.flights}"
 			 var="flight"
 			 rowClasses="oddRows,evenRows"
@@ -93,9 +93,49 @@
 		    <f:facet name="header">Price</f:facet>
 		    <h:outputText value="#{flight.price}"/>
 		</h:column>
+                <h:column rendered="#{flightBean.showMore}">
+		    <f:facet name="header">Price</f:facet>
+		    <h:outputText value="#{flight.price}"/>
+		</h:column>
+                <h:column>
+                    <f:facet name="header">More Details</f:facet>
+                    <h:commandButton value="Edit" action="#{flightBean.displayFlight(flight.flightNo)}" >
+                    </h:commandButton>
+                </h:column>
 	    </h:dataTable>
 			 
 	</h:form>
+        <h:form rendered="#{flightBean.isShowMore()}">
+            <h:panelGrid columns="2" columnClasses="rightalign,leftalign">
+                <h:outputLabel for="flightNo" value="Flight No:"/>
+                <h:outputText id = "flightNo" value="#{flightBean.flightNo}"/>
+                
+                <h:outputLabel for="airlineName" value="Airline Name:"/>
+                <h:outputText id = "airlineName" value="#{flightBean.airlineName}"/>
+                
+                <h:outputLabel for="departureAirport" value="Depature Airport:"/>
+                <h:outputText id = "departureAirport" value="#{flightBean.departureAirport}"/>
+                
+                <h:outputLabel for="arrivalAirport" value="Arrival Airport:"/>
+                <h:outputText id = "arrivalAirport" value="#{flightBean.arrivalAirport}"/>
+                
+                <h:outputLabel for="departureDate" value="Departure Date:"/>
+                <h:outputText id = "departureDate" value="#{flightBean.departureDate}"/>
+                
+                <h:outputLabel for="arrivalDate" value="Arrival Date:"/>
+                <h:outputText id = "arrivalDate" value="#{flightBean.arrivalDate}"/>
+                
+                <h:outputLabel for="availableSeats" value="Available Seats:"/>
+                <h:outputText id = "availableSeats" value="#{flightBean.availableSeats}"/>
+                
+                <h:outputLabel for="flightTime" value="Flight time:"/>
+                <h:outputText id = "flightTime" value="#{flightBean.flightTime}"/>
+                
+                <h:outputLabel for="price" value="Price:"/>
+                <h:outputText id = "price" value="#{flightBean.price}"/>
+                
+            </h:panelGrid>
+        </h:form>
     </h:body>
 </html>
 
