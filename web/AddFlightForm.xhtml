@@ -97,16 +97,18 @@
                 <h:outputLabel value="Price:" for="price"/>
                 <h:inputText id="price" label="Price:" required="true" value="#{flightBean.price}"/>                             
                 <h:message for="price" errorClass="err"/>
-
                 <br/>
-                
-                <h:commandButton value="Create Flight" action="#{flightBean.createFlight()}" rendered="#{flightBean.isModify eq 'false'}" />
+		<div>
+		  <h:commandButton value="Create Flight" action="#{flightBean.createFlight()}" rendered="#{flightBean.isModify eq 'false'}" />
                 <h:commandButton value="Update Flight" action="#{flightBean.updateFlight()}" rendered="#{flightBean.isModify eq 'true'}"/>
+		<h:commandButton value="Delete Flight" action="#{flightBean.deleteFlight()}" rendered="#{flightBean.isModify eq 'true'}"/>
                 <h:commandButton value="Cancel" action="#{flightBean.resetForm()}"/>
-                
+		</div>
             </h:panelGrid>
+	  
             <div>#{flightBean.resultMessage}</div>
         </h:form>
+	
     </h:body>
 </html>
 

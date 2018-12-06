@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
@@ -29,12 +30,14 @@ import org.primefaces.event.SelectEvent;
 public class FlightBean extends FlightBase implements  Serializable {
 
     private Flight flight;
+    private List<IFlightBase> flights = new ArrayList();
     private String resultMessage;
     private String  departBeanDate;
     private String  arrivalBeanDate;
     private String  departBeanTime;
     private String  arrivalBeanTime;
     private int     currentFlightNo;
+    private boolean flightsLoaded;
     private boolean isModify;
     private boolean formActive;
     /**
@@ -43,7 +46,15 @@ public class FlightBean extends FlightBase implements  Serializable {
     public FlightBean() {
 	flight = new Flight();
         formActive = false;
+	flightsLoaded = false;
         currentFlightNo = 0;
+    }
+    public void searchFlights(){
+	    flights = flight.searchFlights(this);
+	    flightsLoaded = true;
+    }
+    public List<IFlightBase> getFlights(){
+	return this.flights;
     }
     public void createFlight(){
 	try {
@@ -63,6 +74,18 @@ public class FlightBean extends FlightBase implements  Serializable {
             this.setFlightNo(currentFlightNo);
 	    flight.updateFlight(this);
             this.resultMessage="Succesfully Inserted";
+	} catch (Exception e) {
+	    this.resultMessage = e.getMessage();
+	}
+    }
+    public void	deleteFlight(){
+	try {
+	    this.resultMessage="";
+	    flight.deleteFlight(this.getFlightNo());
+	    this.clearFlight();
+	    this.setFormActive(false);
+            this.resultMessage="Succesfully Deleted";
+	    this.currentFlightNo = 0;
 	} catch (Exception e) {
 	    this.resultMessage = e.getMessage();
 	}
