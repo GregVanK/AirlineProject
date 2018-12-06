@@ -134,6 +134,9 @@
                 <h:outputLabel for="price" value="Price:"/>
                 <h:outputText id = "price" value="#{flightBean.price}"/>
                 
+                <h:commandButton value="Cancel" action="#{flightBean.showMore(false)}" />
+                <h:commandButton value="Edit" action="#{flightBean.displayFlight(flight.flightNo)}" />
+                
             </h:panelGrid>
         </h:form>
     </h:body>
