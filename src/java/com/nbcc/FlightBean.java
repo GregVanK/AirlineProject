@@ -165,55 +165,56 @@ public class FlightBean extends FlightBase implements  Serializable {
                 this.showMore(true);
         this.setFlight();
     }
-//<editor-fold defaultsttate="collapsed" desc="Getters and setters">
 
+//<editor-fold defaultstate="collapsed" desc="Getters and setters">
+    
     public boolean isShowMore() {
-       return this.showMore;
+        return this.showMore;
     }
-
+    
     public void showMore(boolean value) {
         this.showMore = value;
         
     }
-
+    
     public boolean isReservationFormActive() {
-	return reservationFormActive;
+        return reservationFormActive;
     }
-
+    
     public void setReservationFormActive(boolean reservationFormActive) {
-	this.reservationFormActive = reservationFormActive;
+        this.reservationFormActive = reservationFormActive;
     }
-
+    
     
     public boolean isIsModify() {
         return isModify;
     }
-
+    
     public void setIsModify(boolean isModify) {
         this.isModify = isModify;
     }
-
+    
     public int getCurrentFlightNo() {
         return currentFlightNo;
     }
-
+    
     public void setCurrentFlightNo(int currentFlightNo) {
         this.currentFlightNo = currentFlightNo;
     }
-
+    
     public boolean isFormActive() {
         return formActive;
     }
-
+    
     public void setFormActive(boolean formActive) {
         this.formActive = formActive;
     }
-
-
+    
+    
     public String getResultMessage() {
         return resultMessage;
     }
-
+    
     public void setResultMessage(String resultMessage) {
         this.resultMessage = resultMessage;
     }

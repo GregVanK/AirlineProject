@@ -99,7 +99,7 @@
 		</h:column>
                 <h:column>
                     <f:facet name="header">More Details</f:facet>
-                    <h:commandButton value="Edit" action="#{flightBean.displayFlight(flight.flightNo)}" >
+                    <h:commandButton value="View More" action="#{flightBean.displayFlight(flight.flightNo); reservationBean.setCurrentFlight(flight)}" >
                     </h:commandButton>
                 </h:column>
 	    </h:dataTable>
@@ -139,6 +139,7 @@
 		<h:commandButton value="Cancel" action="#{flightBean.showMore(false)}" />
                 
             </h:panelGrid>
+        </h:form>
 	    
 	    <h:form rendered="#{flightBean.reservationFormActive}">
 		<h3> Payment Information</h3>
@@ -167,12 +168,32 @@
                 <h:inputText class="datePickerControl" label="Credit Card Exp Date:" id="creditExp"  />  
                 <h:message for="creditExp" errorClass="err"/>
 		
-		
-		<h:outputLabel value="Flight Class:" for="flightClass"/>
-                <h:inputText label="Flight Class:" id="flightClass" value="#{reservationBean.flightClass}"  />  
-                <h:message for="flightClass" errorClass="err"/>
+                <h3>Billing Information</h3>
+                
+		<h:outputLabel value="Address 1:" for="address1"/>
+                <h:inputText label="Address 1:" id="address1" value="#{reservationBean.address1}"  /> 
+                <h:message for="address1" errorClass="err"/>
+                <h:outputLabel value="Address 2:" for="address2"/>
+                <h:inputText label="Address 2:" id="address1" value="#{reservationBean.address2}"  /> 
+                <h:message for="address2" errorClass="err"/>
+                
+                <h:outputLabel value="Postal Code:" for="postalCode"/>
+                <h:inputText label="Postal Code:" id="postalCode" value="#{reservationBean.postalCode}"  /> 
+                <h:message for="postalCode" errorClass="err"/>
+                
+                <h:outputLabel value="Country:" for="country"/>
+                <h:inputText label="Country:" id="country" value="#{reservationBean.country}"  /> 
+                <h:message for="country" errorClass="err"/>
+                
+                <h:outputLabel value="Email:" for="email"/>
+                <h:inputText label="Email:" id="email" /> 
+                <h:message for="email" errorClass="err"/>
+                
+                <h:outputLabel for="price" value="Price:"/>
+                <h:outputText id = "price" value="#{flightBean.price}"/>
+                
 		<div>
-		    <h:commandButton value="Search" action="#{flightBean.searchFlights()}"/>
+		    <h:commandButton value="Reserve" action="#{reservationBean.addReservation()}"/>
 		</div>
 	    </h:panelGrid> 
         </h:form>
