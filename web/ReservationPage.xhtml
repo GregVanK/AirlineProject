@@ -126,7 +126,7 @@
                 <h:outputText id = "arrivalDate" value="#{flightBean.arrivalDate}"/>
                 
                 <h:outputLabel for="availableSeats" value="Available Seats:"/>
-                <h:outputText id = "availableSeats" value="#{flightBean.availableSeats}"/>
+                <h:outputText id = "availableSeats" value="#{flightBean.arrivalDate}"/>
                 
                 <h:outputLabel for="flightTime" value="Flight time:"/>
                 <h:outputText id = "flightTime" value="#{flightBean.flightTime}"/>
@@ -134,10 +134,47 @@
                 <h:outputLabel for="price" value="Price:"/>
                 <h:outputText id = "price" value="#{flightBean.price}"/>
                 
-                <h:commandButton value="Cancel" action="#{flightBean.showMore(false)}" />
-                <h:commandButton value="Edit" action="#{flightBean.displayFlight(flight.flightNo)}" />
+                
+                <h:commandButton value="Book Flight" action="#{flightBean.initializeReservation()}" />
+		<h:commandButton value="Cancel" action="#{flightBean.showMore(false)}" />
                 
             </h:panelGrid>
+	    
+	    <h:form rendered="#{flightBean.reservationFormActive}">
+		<h3> Payment Information</h3>
+	    <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
+		 <h:outputLabel value="Credit:" for="creditType"  />
+		 <h:selectOneMenu label ="Credit Card Type: " id="creditType" value="#{reservationBean.creditType}"  >
+		    <f:selectItem value="Visa"/>
+		    <f:selectItem value="MasterCard"/>
+		    <f:selectItem value="Birthday"/>
+                </h:selectOneMenu>
+                <h:message for="creditType" errorClass="err"  />
+		
+		<h:outputLabel value="Credit Card Number:" for="creditNo"/>
+                <h:inputText class="datePickerControl" label="Credit Card Number:" id="creditNo" value="#{reservationBean.creditNo}"  />
+                <h:message for="creditNo" errorClass="err"/>
+		
+		<h:outputLabel value="Credit Card Security Code:" for="creditID"/>
+                <h:inputText class="datePickerControl" label="Credit Card Security Code:" id="creditID" value="#{reservationBean.creditId}"  />  
+                <h:message for="creditID" errorClass="err"/>
+		
+		<h:outputLabel value="Credit Card Holder:" for="creditHolder"/>
+                <h:inputText label="Credit Card Holder:" id="creditHolder" value="#{reservationBean.creditHolder}"  />  
+                <h:message for="creditHolder" errorClass="err"/>
+		
+		<h:outputLabel value="Credit Card Exp Date:" for="creditExp"/>
+                <h:inputText class="datePickerControl" label="Credit Card Exp Date:" id="creditExp"  />  
+                <h:message for="creditExp" errorClass="err"/>
+		
+		
+		<h:outputLabel value="Flight Class:" for="flightClass"/>
+                <h:inputText label="Flight Class:" id="flightClass" value="#{reservationBean.flightClass}"  />  
+                <h:message for="flightClass" errorClass="err"/>
+		<div>
+		    <h:commandButton value="Search" action="#{flightBean.searchFlights()}"/>
+		</div>
+	    </h:panelGrid> 
         </h:form>
     </h:body>
 </html>

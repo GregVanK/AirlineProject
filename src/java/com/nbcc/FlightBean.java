@@ -41,6 +41,7 @@ public class FlightBean extends FlightBase implements  Serializable {
     private boolean isModify;
     private boolean formActive;
     private boolean showMore;
+    private boolean reservationFormActive;
     /**
      * Creates a new instance of FlightBean
      */
@@ -50,6 +51,7 @@ public class FlightBean extends FlightBase implements  Serializable {
 	flightsLoaded = false;
         currentFlightNo = 0;
         showMore = false;
+	reservationFormActive = false;
     }
     public void searchFlights(){
 	    flights = flight.searchFlights(this);
@@ -100,6 +102,10 @@ public class FlightBean extends FlightBase implements  Serializable {
         this.setDepartureDate(departBeanDate + " " +departBeanTime);
         this.setArrivalDate(arrivalBeanDate + " " + arrivalBeanTime);
     }
+    public void	initializeReservation(){
+	showMore = false;
+	reservationFormActive = true;
+    }
     public void setFlight(){
         IFlightBase curFlight =  flight.getFlight(currentFlightNo);
         
@@ -117,6 +123,7 @@ public class FlightBean extends FlightBase implements  Serializable {
         this.setAvailableSeats(curFlight.getAvailableSeats());
         this.setDepartureAirport(curFlight.getDepartureAirport());
         this.setDepartureDate(curFlight.getDepartureDate());
+	this.setArrivalDate(curFlight.getArrivalDate());
         this.setFlightNo(curFlight.getFlightNo());
         this.setFlightTime(curFlight.getFlightTime());
         this.setPrice(curFlight.getPrice());
@@ -167,6 +174,14 @@ public class FlightBean extends FlightBase implements  Serializable {
     public void showMore(boolean value) {
         this.showMore = value;
         
+    }
+
+    public boolean isReservationFormActive() {
+	return reservationFormActive;
+    }
+
+    public void setReservationFormActive(boolean reservationFormActive) {
+	this.reservationFormActive = reservationFormActive;
     }
 
     
