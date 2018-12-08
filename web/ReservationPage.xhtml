@@ -26,7 +26,9 @@
 	<h:outputStylesheet library="css" name="styles.css"/>
     </h:head>
     <h:body>
-        <h:form rendered="#{not flightBean.isShowMore()}">
+	<h:outputText value="#{flightBean.reservationFormActive}"/><br/>
+	<h:outputText  value="#{flightBean.showMore}"/>
+        <h:form rendered="#{flightBean.searchFormActive}">
 	    <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
 		 <h:outputLabel value="Departure Airport:" for="departureA"  />
                 <h:selectOneMenu label ="Departure Airport: " id="departureA" value="#{flightBean.departureAirport}"  >
@@ -49,7 +51,7 @@
                 <h:message for="arrivalD" errorClass="err"/>
 		
 		<h:outputLabel value="Number of Travelers:" for="noTravelers"/>
-                <h:inputText label="Number of Travelers:" id="noTravelers" value="#{flightBean.availableSeats}"  />  
+                <h:inputText label="Number of Travelers:" id="noTravelers" value="#{flightBean.availableSeats}" />  
                 <h:message for="noTravelers" errorClass="err"/>
 		
 		<h:outputLabel value="Number of Children:" for="noChildren"/>
@@ -65,7 +67,7 @@
 		</div>
 	    </h:panelGrid> 
 	</h:form>
-	<h:form rendered="#{not flightBean.isShowMore()}">
+	<h:form rendered="#{flightBean.searchFormActive}">
 	    <h:dataTable value="#{flightBean.flights}"
 			 var="flight"
 			 rowClasses="oddRows,evenRows"
@@ -99,13 +101,13 @@
 		</h:column>
                 <h:column>
                     <f:facet name="header">More Details</f:facet>
-                    <h:commandButton value="View More" action="#{flightBean.displayFlight(flight.flightNo); reservationBean.setCurrentFlight(flight)}" >
+                    <h:commandButton value="View More" action="#{flightBean.displayFlight(flight.flightNo)}" >
                     </h:commandButton>
                 </h:column>
 	    </h:dataTable>
 			 
 	</h:form>
-        <h:form rendered="#{flightBean.isShowMore()}">
+        <h:form rendered="#{flightBean.showMore}">
             <h:panelGrid columns="2" columnClasses="rightalign,leftalign">
                 <h:outputLabel for="flightNo" value="Flight No:"/>
                 <h:outputText id = "flightNo" value="#{flightBean.flightNo}"/>
@@ -135,29 +137,31 @@
                 <h:outputText id = "price" value="#{flightBean.price}"/>
                 
                 
-                <h:commandButton value="Book Flight" action="#{flightBean.initializeReservation()}" />
+                <h:commandButton value="Book Flight" action="#{flightBean.initializeReservation()}" >
+		    <f:actionListener binding="#{reservationBean.setCurrentFlight(flightBean)}" />
+		</h:commandButton>
 		<h:commandButton value="Cancel" action="#{flightBean.showMore(false)}" />
                 
             </h:panelGrid>
         </h:form>
 	    
 	    <h:form rendered="#{flightBean.reservationFormActive}">
-		<h3> Payment Information</h3>
+		<h4 > Payment Information</h4>
 	    <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
 		 <h:outputLabel value="Credit:" for="creditType"  />
 		 <h:selectOneMenu label ="Credit Card Type: " id="creditType" value="#{reservationBean.creditType}"  >
-		    <f:selectItem value="Visa"/>
-		    <f:selectItem value="MasterCard"/>
-		    <f:selectItem value="Birthday"/>
+		     <f:selectItem itemValue="Visa"/>
+		    <f:selectItem itemValue="MasterCard"/>
+		    <f:selectItem itemValue="Birthday"/>
                 </h:selectOneMenu>
                 <h:message for="creditType" errorClass="err"  />
 		
 		<h:outputLabel value="Credit Card Number:" for="creditNo"/>
-                <h:inputText class="datePickerControl" label="Credit Card Number:" id="creditNo" value="#{reservationBean.creditNo}"  />
+                <h:inputText label="Credit Card Number:" id="creditNo" value="#{reservationBean.creditNo}"  />
                 <h:message for="creditNo" errorClass="err"/>
 		
 		<h:outputLabel value="Credit Card Security Code:" for="creditID"/>
-                <h:inputText class="datePickerControl" label="Credit Card Security Code:" id="creditID" value="#{reservationBean.creditId}"  />  
+                <h:inputText label="Credit Card Security Code:" id="creditID" value="#{reservationBean.creditId}"  />  
                 <h:message for="creditID" errorClass="err"/>
 		
 		<h:outputLabel value="Credit Card Holder:" for="creditHolder"/>
@@ -165,16 +169,16 @@
                 <h:message for="creditHolder" errorClass="err"/>
 		
 		<h:outputLabel value="Credit Card Exp Date:" for="creditExp"/>
-                <h:inputText class="datePickerControl" label="Credit Card Exp Date:" id="creditExp"  />  
+                <h:inputText class="datePickerControl" label="Credit Card Exp Date:" id="creditExp" value="#{reservationBean.creditExpDate}" />  
                 <h:message for="creditExp" errorClass="err"/>
-		
-                <h3>Billing Information</h3>
-                
+	    </h:panelGrid>
+                <h4>Billing Information</h4>
+               <h:panelGrid columns="3" columnClasses="rightalign,leftalign,leftalign">
 		<h:outputLabel value="Address 1:" for="address1"/>
                 <h:inputText label="Address 1:" id="address1" value="#{reservationBean.address1}"  /> 
                 <h:message for="address1" errorClass="err"/>
                 <h:outputLabel value="Address 2:" for="address2"/>
-                <h:inputText label="Address 2:" id="address1" value="#{reservationBean.address2}"  /> 
+                <h:inputText label="Address 2:" id="address2" value="#{reservationBean.address2}"  /> 
                 <h:message for="address2" errorClass="err"/>
                 
                 <h:outputLabel value="Postal Code:" for="postalCode"/>
@@ -190,8 +194,17 @@
                 <h:message for="email" errorClass="err"/>
                 
                 <h:outputLabel for="price" value="Price:"/>
-                <h:outputText id = "price" value="#{flightBean.price}"/>
-                
+                <h:outputText id = "price" value="#{reservationBean.currentFlight.price}"/>
+		<div/>
+		
+		<h:outputLabel for="taxes" value="Taxes:"/>
+                <h:outputText id = "taxes" value="#{reservationBean.calculateTax()}"/>
+		<div/>
+		
+		<h:outputLabel for="transCosts" value="Transportation Costs:"/>
+                <h:inputText label="Transportation Costs:" id = "transCosts" value="#{reservationBean.transportCosts}"/>
+                <h:message for="address2" errorClass="err"/>
+		
 		<div>
 		    <h:commandButton value="Reserve" action="#{reservationBean.addReservation()}"/>
 		</div>
